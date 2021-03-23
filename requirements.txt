@@ -1,0 +1,14 @@
+click==7.1.2
+Flask==1.1.2
+Flask-Login==0.5.0
+Flask-SQLAlchemy==2.5.1
+greenlet==1.0.0
+gunicorn==20.0.4
+itsdangerous==1.1.0
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+PyJWT==2.0.1
+pypale==0.0.1
+SQLAlchemy==1.4.2
+timedelta==2020.12.3
+Werkzeug==1.0.1
