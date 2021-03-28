@@ -1,0 +1,113 @@
+/* screen - send-a-like-confirm-4 */
+
+.cc-number{
+ color: var(--white);
+font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 32px;
+font-style: normal;
+font-weight: 200;
+letter-spacing: 26px;
+position: relative;
+top: 45px;
+z-index: 1;
+left: 13px;
+}
+
+.cc-subtitle {
+  position: relative;
+  bottom: 50px;
+}
+
+.click-counter {
+  position: relative;
+  bottom:50px;
+}
+
+.cc-bg{
+  position: relative;
+}
+
+h3 {
+  font-family: 'HelveticaNeue-Regular', Helvetica Neue;
+font-size: 24px;
+margin:8px;
+}
+
+h4 {
+  font-family: 'HelveticaNeue-Regular', Helvetica Neue;
+font-size: 20px;
+margin:8px;
+}
+
+p {
+  font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+margin-left: 32px;
+margin-right: 32px;
+}
+
+a {
+  font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+padding:4px;
+}
+
+.link-primary{
+  color: #6C4FE3;
+  font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+}
+
+.btn.button-primary{
+height: 40px;
+min-width: 280px;
+background-color: #6C4FE3;
+color: white;
+font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+border-radius: 22px;
+box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+margin-left:32px;
+margin-right: 32px;
+}
+
+.btn.button-secondary{
+height: 40px;
+width: 280px;
+background-color: white;
+border:2px solid #6C4FE3;
+color: #6C4FE3;
+font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+border-radius: 22px;
+margin: 16px;
+}
+
+.btn.button-third{
+color: #6C4FE3;
+font-family: 'HelveticaNeue-Medium', Helvetica Neue;
+font-size: 16px;
+background:none;
+margin: 4px;
+text-decoration: none;
+box-shadow: none;
+}
+
+.inp.input-primary{
+height: 40px;
+width: 280px;
+border-radius: 22px;
+border:2px solid #ADADAD;
+padding-left: 14px;
+margin: 8px;
+}
+
+:root {
+  --black: rgba(0,0,0,1.0);
+  --dove-gray: rgba(112,112,112,1.0);
+  --mountain-mist: rgba(149,149,149,1.0);
+  --purple-heart: rgba(108,79,227,1.0);
+  --silver: rgba(193,193,193,1.0);
+  --silver-chalice: rgba(173,173,173,1.0);
+  --white: rgba(255,255,255,1.0);
+}

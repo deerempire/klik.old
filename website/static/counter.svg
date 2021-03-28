@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="262" height="43" viewBox="0 0 262 43">
+  <g id="counter" transform="translate(-76 -145)">
+    <g id="Gruppe_15" data-name="Gruppe 15">
+      <path id="Rechteck_27" data-name="Rechteck 27" d="M1,0H41a1,1,0,0,1,1,1V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(120 145)" fill="#313131"/>
+      <path id="Rechteck_29" data-name="Rechteck 29" d="M1,0H41a1,1,0,0,1,1,1V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(164 145)" fill="#313131"/>
+      <path id="Rechteck_31" data-name="Rechteck 31" d="M1,0H41a1,1,0,0,1,1,1V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(208 145)" fill="#313131"/>
+      <path id="Rechteck_33" data-name="Rechteck 33" d="M1,0H41a1,1,0,0,1,1,1V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(252 145)" fill="#313131"/>
+      <path id="Rechteck_35" data-name="Rechteck 35" d="M1,0H38a4,4,0,0,1,4,4V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V1A1,1,0,0,1,1,0Z" transform="translate(296 145)" fill="#313131"/>
+      <path id="Rechteck_37" data-name="Rechteck 37" d="M4,0H41a1,1,0,0,1,1,1V22a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V4A4,4,0,0,1,4,0Z" transform="translate(76 145)" fill="#313131"/>
+    </g>
+    <g id="Gruppe_16" data-name="Gruppe 16" transform="translate(0 -0.716)">
+      <path id="Rechteck_28" data-name="Rechteck 28" d="M0,0H42a0,0,0,0,1,0,0V20a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V0A0,0,0,0,1,0,0Z" transform="translate(120 167.716)" fill="#313131"/>
+      <path id="Rechteck_30" data-name="Rechteck 30" d="M0,0H42a0,0,0,0,1,0,0V20a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V0A0,0,0,0,1,0,0Z" transform="translate(164 167.716)" fill="#313131"/>
+      <path id="Rechteck_32" data-name="Rechteck 32" d="M0,0H42a0,0,0,0,1,0,0V20a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V0A0,0,0,0,1,0,0Z" transform="translate(208 167.716)" fill="#313131"/>
+      <path id="Rechteck_34" data-name="Rechteck 34" d="M0,0H42a0,0,0,0,1,0,0V20a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V0A0,0,0,0,1,0,0Z" transform="translate(252 167.716)" fill="#313131"/>
+      <path id="Rechteck_36" data-name="Rechteck 36" d="M0,0H42a0,0,0,0,1,0,0V17a4,4,0,0,1-4,4H1a1,1,0,0,1-1-1V0A0,0,0,0,1,0,0Z" transform="translate(296 167.716)" fill="#313131"/>
+      <path id="Rechteck_38" data-name="Rechteck 38" d="M0,0H42a0,0,0,0,1,0,0V20a1,1,0,0,1-1,1H4a4,4,0,0,1-4-4V0A0,0,0,0,1,0,0Z" transform="translate(76 167.716)" fill="#313131"/>
+    </g>
+  </g>
+</svg>

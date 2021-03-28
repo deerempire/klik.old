@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h3 align="center">{{ usr }}'s</br>klik score</h3>
+    <div class="click-counter" align="center"><div class="cc-number">{{ rows }}</div><img src="static/counter.svg" alt="click counter" class="cc-bg">
+    </div>
+    {% if user.is_authenticated == False%}
+        <div class="cc-subtitle" align="center"><a>Want to know your score? </br> Once you sent a klik, we will show you how.</a></div>
+    {% endif %}
+ <p align="center">Do you secretely like <b>{{ usr }}</b>? 🤫</p>
+    {% if user.is_authenticated == False%}
+        <form method="POST">
+        {% if guest %}
+            <input name="guest" id = "guest" value="{{ guest if guest }}", hidden="True"></input>
+        {% else %}
+            <div align="center"><input name="guest" id="guest" placeholder="Your instagram username" class="inp input-primary" value="{{ guest if guest }}"></input></div>
+         {% endif %}
+    {% else %}
+        <form method="POST">
+        <input name="guest" id="guest" value={{ user.username }} class="inp input-primary", hidden="True"></input>
+        <br/>
+    {% endif %}
+  <div align="center">
+
+          <button type="submit" class="btn button-primary">KLIK!</button>
+
+  </div>
+
+</form>
+    {% if user.is_authenticated == False%}
+        {% if guest %}
+    <div class="container" align="center">
+    <a>You're clicking as <b>{{ guest }}</b>.</a>
+    <form action="/forget-me" method="POST">
+         <button type="submit" class="btn button-third" >Forget me</button>
+    </form>
+        {% endif %}
+    {% endif %}
+</div>
+
+    <div></div>
+
+
+{% endblock %}

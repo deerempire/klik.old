@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+%}
+<form method="POST">
+  <h3 align="center">Got a pass?</h3>
+  <div class="form-group">
+      <label for="user_name">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      id="user_name"
+      name="user_name"
+      placeholder="Enter username"
+    />
+  </div>
+  <div class="form-group">
+    <label for="temp_pass">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="temp_pass"
+      name="temp_pass"
+      placeholder="Enter temp pass."
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Enter</button>
+</form>
+    <div align="center"><a class="btn button-secondary" href="/x/x/create">Get a pass</a></div>
+
+{% endblock %}

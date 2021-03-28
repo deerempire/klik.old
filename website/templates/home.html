@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+    <br />
+<h2 align="center">Welcome back, {{ user.username }}.</h2>
+     <br />
+    <h2> {{ code }} </h2>
+    <div align="center"><div class="click-counter" align="center"><div class="cc-number">{{ rows }}</div><img src="static/counter.svg" alt="click counter" class="cc-bg"></div>
+    <br />
+    <h4 align="center">Do you secretely like one of your followers?🤫</h4>
+    <form method="POST">
+
+  <input type="text" class="inp input-primary" name="click" id="click" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn button-primary">KLIK!</button>
+  </div>
+</form>
+<div align="center">
+    <br/>
+    <a>Just some suggestions: </a>
+    <br/>
+    {% for p in people %}
+        <a class="badge rounded-pill bg-secondary text-light" href="https://www.instagram.com/{{ p }}">{{ p }}</a>
+    {% endfor %}
+</div>
+    <br />
+    <br />
+
+    <table class="table table-sm">
+  <thead>
+    <tr>
+        <th scope="col">User</th>
+        <th scope="col"></th>
+      <th scope="col">Status</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for click in user.clicks %}
+    <tr>
+        <td><a href="http://127.0.0.1:5000/{{ click.receiver }}" class="link-primary">{{ click.receiver }}</a></td>
+      <td><a href="https://www.instagram.com/{{ click.receiver }}" class="link-primary"><img src="static/insta.svg" alt="insta"></a></td>
+      <td>{% if click.receiver in matches %} Matched 😻 {% endif %}</td>
+      <td><button type="button" class="close" onClick="deleteNote({{ click.id }})">
+      <span aria-hidden="true", >💀</span>
+    </button></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
