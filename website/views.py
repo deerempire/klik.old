@@ -1,7 +1,7 @@
 from flask import Blueprint, session, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Clicks, Users, Memberships
-from .methods import find_matches, get_insta
+from .methods import find_matches
 from datetime import timedelta
 import time
 from . import db
@@ -75,14 +75,14 @@ def home():
     ### Sending a Click ###
     if request.method == 'POST':
         click = request.form.get('click')
-        r = requests.get("http://www.instagram.com/" + str(click))
+        r = requests.get("http://www.wwu.de" + str(click))
 
         if click in sLi:  # returns True or False
             flash("You already klik'd " + str(click) + ".", category='error')
         elif current_user.username == click:
             flash("You can't klik yourself!", category='error')
         elif r.status_code == 404:
-            flash("Instagram user doesn't exist!", category='error')
+            flash("WWU user doesn't exist!", category='error')
         elif len(click) < 2:
             flash("This can't be right.", category='error')
         else:
@@ -158,7 +158,7 @@ def userPage(usr):
     if request.method == 'POST':
         receiver = usr
         received = []
-        r = requests.get("http://www.instagram.com/" + str(sender))
+        r = requests.get("http://www.wwu.de/" + str(sender))
 
         sender = request.form.get('guest')
 
@@ -166,7 +166,7 @@ def userPage(usr):
         session['guest'] = sender
 
         if r.status_code == 404:
-            flash("This Instagram user doesn't exist!", category='error')
+            flash("This WWU user doesn't exist!", category='error')
         elif sender == receiver:
             flash("Really?", category='error')
         elif len(sender) < 2:
