@@ -237,10 +237,11 @@
         {% if user.is_authenticated == False%}
         <form method="POST">
         {% if guest %}
+     
             <input name="guest" id = "guest" value="{{ guest if guest }}", hidden="True"></input>
             You are clicking as {{ guest }}
         {% else %}
-            <input name="guest" id="guest" placeholder="Your instagram username" class="form-control" value="{{ guest if guest }}"></input>
+            <input name="guest" id="guest" placeholder="Your WWU username" class="form-control" value="{{ guest if guest }}"></input>
          {% endif %}
         <br/>
     {% else %}
