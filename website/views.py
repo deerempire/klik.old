@@ -146,7 +146,7 @@ def userPage(usr):
 
     ### User Profile Photo ###
 
-    r = requests.get("http://www.instagram.com/" + str(usr))
+    r = requests.get("http://www.wwu.de/" + str(usr))
     print("STATUS $$$$$$$$$$$")
     print(r.status_code)
     time.sleep(0.5)
