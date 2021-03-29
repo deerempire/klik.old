@@ -6,7 +6,7 @@
     <h2> {{ code }} </h2>
     <div align="center"><div class="click-counter" align="center"><div class="cc-number">{{ rows }}</div><img src="static/counter.svg" alt="click counter" class="cc-bg"></div>
     <br />
-    <h4 align="center">Do you secretely like one of your followers?🤫</h4>
+    <h4 align="center">Do you secretely like one of your class mates?🤫</h4>
     <form method="POST">
 
   <input type="text" class="inp input-primary" name="click" id="click" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
@@ -21,18 +21,17 @@
     <a>Just some suggestions: </a>
     <br/>
     {% for p in people %}
-        <a class="badge rounded-pill bg-secondary text-light" href="https://www.instagram.com/{{ p }}">{{ p }}</a>
+        <a class="badge rounded-pill bg-secondary text-light" href="https://www.wwu.de/{{ p }}">{{ p }}</a>
     {% endfor %}
 </div>
-    <br />
-    <br />
-
-    <table class="table table-sm">
+<br/>
+    <br/>
+     <table class="table table-sm">
   <thead>
     <tr>
-        <th scope="col">User</th>
+        <th scope="col">Kliks</th>
         <th scope="col"></th>
-      <th scope="col">Status</th>
+      <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -49,5 +48,6 @@
   {% endfor %}
   </tbody>
 </table>
+  
 
 {% endblock %}

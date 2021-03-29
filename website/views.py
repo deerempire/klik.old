@@ -1,7 +1,8 @@
 from flask import Blueprint, session, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Clicks, Users, Memberships
-from .methods import find_matches, get_insta
+from .methods import find_matches
+from .messages import get_page_information
 from datetime import timedelta
 import time
 from . import db
@@ -18,7 +19,6 @@ temp_pass = "temp"
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-
     people = []
     known_people = []
     people_count = []

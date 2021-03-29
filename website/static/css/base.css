@@ -102,6 +102,11 @@ padding-left: 14px;
 margin: 8px;
 }
 
+.container{
+  height: 100%;
+}
+
+
 :root {
   --black: rgba(0,0,0,1.0);
   --dove-gray: rgba(112,112,112,1.0);
