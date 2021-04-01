@@ -45,11 +45,11 @@ def sign_up():
         user_name = request.form.get('user_name')
         temp_pass = request.form.get('temp_pass')
         user = Users.query.filter_by(username=user_name).first()
-        r = requests.get("http://www.instagram.com/" + str(user_name))
+        r = requests.get("http://www.wwu.de/" + str(user_name))
         if user:
             flash('Username already exists. Try login instead.', category='error')
         elif r.status_code == 404:
-            flash("There is no instagram user with this name.", category='error')
+            flash("There is no WWU user with this name.", category='error')
         else:
             new_user = Users(username=user_name, temppass=temp_pass)
             db.session.add(new_user)
