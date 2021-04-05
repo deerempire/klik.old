@@ -100,11 +100,12 @@ class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(1000))
     username = db.Column(db.String(150), db.ForeignKey('users.username'))
+    creation_date = db.Column(db.DateTime(timezone=True), default=func.now())
 
 
 class Memberships(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), db.ForeignKey('users.username'))
-    start_date = db.Column(db.DateTime(timezone=True), default=func.now())
+    start_date = db.Column(db.DateTime(timezone=True))
     end_date = db.Column(db.DateTime(timezone=True))
     type = db.Column(db.String(150))

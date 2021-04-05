@@ -3,7 +3,7 @@ function deleteNote(clickId) {
     method: "POST",
     body: JSON.stringify({ clickId: clickId }),
   }).then((_res) => {
-    window.location.href = "/";
+    window.location.href = document.URL;
   });
 }
 

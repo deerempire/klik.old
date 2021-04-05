@@ -3,15 +3,13 @@
     <br />
 <h2 align="center">Welcome back, {{ user.username }}.</h2>
      <br />
-    <h2> {{ code }} </h2>
     <div align="center"><div class="click-counter" align="center"><div class="cc-number">{{ rows }}</div><img src="static/counter.svg" alt="click counter" class="cc-bg"></div>
     <br />
     <h4 align="center">Do you secretely like one of your class mates?🤫</h4>
-    <form method="POST">
+    <form method="POST" spellcheck="false">
 
   <input type="text" class="inp input-primary" name="click" id="click" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 </div>
-  <br />
   <div align="center">
     <button type="submit" class="btn button-primary">KLIK!</button>
   </div>
@@ -29,7 +27,7 @@
      <table class="table table-sm">
   <thead>
     <tr>
-        <th scope="col">Kliks</th>
+        <th scope="col">My Kliks</th>
         <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -48,6 +46,5 @@
   {% endfor %}
   </tbody>
 </table>
-  
 
 {% endblock %}

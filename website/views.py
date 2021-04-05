@@ -2,8 +2,10 @@ from flask import Blueprint, session, render_template, request, flash, jsonify, 
 from flask_login import login_required, current_user
 from .models import Clicks, Users, Memberships
 from .methods import find_matches
-from .messages import get_page_information
-from datetime import timedelta
+from datetime import timedelta, datetime
+from sqlalchemy import and_, func, desc
+import threading
+
 import time
 from . import db
 import json
@@ -16,25 +18,35 @@ views.permanent_session_lifetime = timedelta(seconds=30)
 temp_pass = "temp"
 
 
+
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     people = []
+    rere = []
     known_people = []
     people_count = []
+
     matches, sLi = find_matches(current_user)
 
 
-    ### Queries ###
-    rows = Clicks.query.filter_by(receiver=current_user.username).count()
+    ## Who clicked? ##
+    received = Clicks.query.filter_by(receiver=current_user.username).all()
+    for r in received:
+        rere.append(r.sender)
+
+    rows = len(received)
+    print(received)
     sent = Clicks.query.filter_by(sender=current_user.username).all()
-    random_people = Clicks.query.filter(Clicks.receiver != current_user.username and Clicks.confirmed != 0).limit(30).all()
+    random_people = Clicks.query.filter(and_(Clicks.receiver != current_user.username, Clicks.confirmed != 0)).filter(Clicks.sender.notin_(rere)).all()
+
+    print("randoms:")
+    print(random_people)
 
     ### People Suggestions ###
-    comm_prob = randrange(30)
-
-    if comm_prob < 5:
-        received = Clicks.query.filter_by(receiver=current_user.username).limit(5).all()
+    comm_prob = randrange(100)
+    print(comm_prob)
+    if comm_prob < 25:
         chosen = randrange(len(received))
         received = received[chosen:chosen+1] #select one random person from the received list
         received = received + random_people #add it to a list of unknown, random people
@@ -59,30 +71,18 @@ def home():
         people.remove(current_user.username)
 
     ### Click Counter ###
-    if rows < 10:
-        new_rows = "00000" + str(rows)
-    elif 10 < rows < 100:
-        new_rows = "0000" + str(rows)
-    elif 100 < rows < 1000:
-        new_rows = "000" + str(rows)
-    elif 1000 < rows < 10000:
-        new_rows = "00" + str(rows)
-    elif 10000 < rows < 100000:
-        new_rows = "0" + str(rows)
-    else:
-        new_rows = str(rows)
+
+    new_rows = click_counter(rows)
 
     ### Sending a Click ###
+
     if request.method == 'POST':
         click = request.form.get('click')
-        r = requests.get("http://www.instagram.com/" + str(click))
-
+        click = click.lower()
         if click in sLi:  # returns True or False
             flash("You already klik'd " + str(click) + ".", category='error')
         elif current_user.username == click:
             flash("You can't klik yourself!", category='error')
-        elif r.status_code == 404:
-            flash("Instagram user doesn't exist!", category='error')
         elif len(click) < 2:
             flash("This can't be right.", category='error')
         else:
@@ -97,9 +97,16 @@ def home():
 
 @views.route('/forget-me', methods=['POST'])
 def forget_me():
+    if request.method == 'POST':
+        usr = request.form.get('forget')
     session.pop('guest', None)
+    return redirect(f"/{usr}")
 
-    return redirect(url_for("views.home"))
+@views.route('/search-user', methods=['POST'])
+def search_user():
+    if request.method == 'POST':
+        usr = request.form.get('search')
+    return redirect(f"/{usr}")
 
 
 @views.route('/delete-click', methods=['GET','POST'])
@@ -119,55 +126,41 @@ def userPage(usr):
 
     ### Click Counter###
     rows = Clicks.query.filter_by(receiver=usr).count()
-    # rows= 29995
-    if rows < 10:
-        new_rows = "00000" + str(rows)
-    elif 10 < rows < 100:
-        new_rows = "0000" + str(rows)
-    elif 100 < rows < 1000:
-        new_rows = "000" + str(rows)
-    elif 1000 < rows < 10000:
-        new_rows = "00" + str(rows)
-    elif 10000 < rows < 100000:
-        new_rows = "0" + str(rows)
-    else:
-        new_rows = str(rows)
+    new_rows = click_counter(rows)
+
+    show = 1
+    click_id = 0
 
     if "guest" in session:
         sender = session["guest"]
-        print("There's sender in session.")
-
+        print("There's a guest in session.")
     else:
         sender = None
-        print("No sender in session.")
+        print("No guest in session.")
 
-    if current_user.is_authenticated and usr == current_user.username:
-        return redirect(url_for("views.home"))
+    if current_user.is_authenticated:
+        if usr == current_user.username:
+            return redirect(url_for("views.home"))
+        else:
+            sent = Clicks.query.filter_by(sender=current_user.username).all()
+            for s in sent:
+                if s.receiver == usr:
+                    click_id = s.id
+                    show = 0
 
-    ### User Profile Photo ###
 
-    r = requests.get("http://www.instagram.com/" + str(usr))
-    print("STATUS $$$$$$$$$$$")
-    print(r.status_code)
-    time.sleep(0.5)
-    if r.status_code == 500:
-        photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4gsPA0tTcRaIyay32GDKYlX0GCABN0BzMYw&usqp=CAU"
-    print("NEW STATUS $$$$$$$$$$$")
-    print(r.status_code)
     ### Sending a Click ###
     if request.method == 'POST':
-        receiver = usr
+        receiver = usr.lower()
         received = []
-        r = requests.get("http://www.instagram.com/" + str(sender))
 
         sender = request.form.get('guest')
+        sender.lower()
 
         session.permanent = True
         session['guest'] = sender
 
-        if r.status_code == 404:
-            flash("This Instagram user doesn't exist!", category='error')
-        elif sender == receiver:
+        if sender == receiver:
             flash("Really?", category='error')
         elif len(sender) < 2:
             flash("Really?", category='error')
@@ -187,10 +180,24 @@ def userPage(usr):
                     db.session.add(new_click)
                     db.session.commit()
                     flash('Klik sent to ' + str(receiver) + "!", category='success')
+                    return redirect(f"/{usr}")
             else:
-                print("but he is not authenticated")
-                flash("This user is already registered. Please sign in!", category='error')
-                return redirect(url_for("auth.login"))
+                date_ = Users.query.filter_by(username=sender, creation_date=Users.creation_date).first()
+                creation_date = date_.creation_date
+                time_left = datetime.now() - creation_date
+                if time_left.days > 3:
+                    print("but he is not authenticated")
+                    flash(f"Trial over. This user has been registered since {creation_date}.", category='error')
+                    return redirect(url_for("auth.login"))
+                elif receiver not in received:
+                    new_click = Clicks(receiver=receiver, sender=sender, confirmed=False)
+                    db.session.add(new_click)
+                    db.session.commit()
+                    flash('Klik sent to ' + str(receiver) + "!", category='success')
+                    return redirect(f"/{usr}")
+                else:
+                    flash(f"Already klik'd {receiver}!", category='error')
+
 
         else:
             new_click = Clicks(receiver=receiver, sender=sender, confirmed=False)
@@ -203,8 +210,44 @@ def userPage(usr):
             flash('Klik sent to ' + str(receiver) + "!", category='success')
             return redirect(url_for("views.share", usr=usr, sendr=sender))
 
-    return render_template("page.html", usr=usr, rows=new_rows, user=current_user, guest=sender)
+    return render_template("page.html", usr=usr.lower(), rows=new_rows, user=current_user, guest=sender, show = show, click_id = click_id)
 
+
+@views.route("/x/x/welcome", methods=['GET'])
+def welcome():
+    ## Top Ten ##
+    top_ten_today = Clicks.query.with_entities(Clicks.receiver, func.count(Clicks.receiver)).group_by(Clicks.receiver).all()
+    top = sorted(top_ten_today, key=lambda x: x[1], reverse=True)
+    top_ten = top[0:11]  # select top eleven
+    tt = []
+    i = 1
+
+    for previous, current in zip(top, top[1:]):
+        if previous[1] == current[1]:
+            l = list(previous)
+            if i == 1:
+                l.append("🥇")
+            if i == 2:
+                l.append("🥈")
+            if i == 3:
+                l.append("🥉")
+            l.append(i)
+            tt.append(l)
+        elif previous[1] != current[1]:
+            l = list(previous)
+            if i == 1:
+                l.append("🥇")
+            if i == 2:
+                l.append("🥈")
+            if i == 3:
+                l.append("🥉")
+            l.append(i)
+            tt.append(l)
+            i += 1
+            if i == 11:
+                break
+
+    return render_template("welcome.html", top=tt, user=current_user)
 
 @views.route("/<usr>/<sendr>", methods=['GET', 'POST'])
 def share(usr, sendr):
@@ -215,3 +258,20 @@ def share(usr, sendr):
 @views.route("/<usr>/<sendr>/create", methods=['GET', 'POST'])
 def create(usr, sendr):
     return render_template("share.html", usr=usr, sendr=sendr, user=current_user)
+
+def click_counter(rows):
+
+    if rows < 10:
+        new_rows = "00000" + str(rows)
+    elif 10 <= rows < 100:
+        new_rows = "0000" + str(rows)
+    elif 100 < rows < 1000:
+        new_rows = "000" + str(rows)
+    elif 1000 < rows < 10000:
+        new_rows = "00" + str(rows)
+    elif 10000 < rows < 100000:
+        new_rows = "0" + str(rows)
+    else:
+        new_rows = str(rows)
+
+    return new_rows

@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<h2 align="center">Ranking</h2>
+    
+<table class="table table-light table-striped">
+<thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">klik.re/</th>
+      <th scope="col"></th>
+      <th scope="col">Kliks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for t in top %}
+    <tr>
+      <th scope="row">{{ t[2] }}</th>
+      <td><a href="http://127.0.0.1:5000/{{ t[0] }}" class="link-primary">{{ t[0] }}</a></td>
+      <td><a href="https://www.instagram.com/{{ t[0] }}" class="link-primary"><img src="{{  url_for("static", filename="insta.svg")}}" alt="insta"></a></td>
+      <td>{{ t[1] }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

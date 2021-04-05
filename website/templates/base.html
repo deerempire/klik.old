@@ -19,7 +19,8 @@
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <button
         class="navbar-toggler"
         type="button"
@@ -28,8 +29,14 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+    <form spellcheck="false" action="/search-user" method="POST" class="d-flex">
+      <input class="inp input-nav" type="search" name="search" id="search" placeholder="Go to user" aria-label="Search">
+      <button hidden="true" class="search-button" type="submit" style="background:none; border: none;"><img src="{{  url_for("static", filename="next.svg")}}"></button>
+    </form>
+
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
+
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
@@ -39,6 +46,7 @@
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
               <a class="nav-item nav-link" id="login" href="/x/sign-up">Password-less Sign Up</a>
           {% endif %}
+            <a class="nav-item nav-link" id="welcome" href="/x/x/welcome">Ranking</a>
         </div>
       </div>
     </nav>

@@ -20,6 +20,7 @@ def login():
             if user.temppass == temp_pass:
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
+                session["guest"] = user_name
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect pass, try again.', category='error')
@@ -35,7 +36,6 @@ def logout():
     logout_user()
     session.pop('guest', None)
     session.pop('sender', None)
-    print(session)
     return redirect(url_for('auth.login'))
 
 
