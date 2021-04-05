@@ -251,13 +251,10 @@ def welcome():
 
 @views.route("/<usr>/<sendr>", methods=['GET', 'POST'])
 def share(usr, sendr):
+    sendr = sendr
+    usr = usr
+    return render_template("create.html", usr=usr, sender=sendr, user=current_user)
 
-   return render_template("share.html", usr=usr, sender=sendr, user=current_user)
-
-
-@views.route("/<usr>/<sendr>/create", methods=['GET', 'POST'])
-def create(usr, sendr):
-    return render_template("share.html", usr=usr, sendr=sendr, user=current_user)
 
 def click_counter(rows):
 

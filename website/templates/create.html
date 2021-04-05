@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %}Verify{% endblock %} {% block content
+%}
+
+<h4 align="center">Great! We will unlock your page and send the klik. Just confirm your identity, so we can verify the klik:</h4>
+
+<form method="POST" spellcheck="false">
+
+        <div align="center">  
+
+<input name="guest" id="guest" value="{{ sender }}" class="inp input-primary" readonly="readonly"></input>
+
+<button type="submit" class="btn button-primary">VERIFY ME</button>
+
+         </div>
+</form>
+
+{% endblock %}
